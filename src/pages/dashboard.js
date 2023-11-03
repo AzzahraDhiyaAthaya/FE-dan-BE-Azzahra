@@ -1,11 +1,17 @@
 import { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { fetchProtectedInfo, onLogout } from '../api/auth'
-import Layout from '../components/layout'
+// import Layout from '../components/layout'
+import { ReactDOM } from 'react'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import Home from './notes/Home'
+import Layout from './notes/Layout'
+import Addnote from './notes/Addnote'
+import EditNote from './notes/EditNote'
+import NoPage from './notes/NoPage'
 import { unauthenticateUser } from '../redux/slices/authSlice'
-import Notes from './Note'
 
-const Dashboard = () => {
+const Notes = () => {
   const dispatch = useDispatch()
   const [loading, setLoading] = useState(true)
   const [protectedData, setProtectedData] = useState(null)
@@ -37,15 +43,28 @@ const Dashboard = () => {
     protectedInfo()
   }, )
 
-  return loading ? (
-    <Layout>
-      <h1>Loading...</h1>
-    </Layout>
-  ) : (
-    <div>
-      <Notes />
-    </div>
-  )
+  // return loading ? (
+  //   <Layout>
+  //     <h1>Loading...</h1>
+  //   </Layout>
+  // ) : (
+  //   <div>
+  //     <Notes />
+  //   </div>
+  // )
+
+    return (
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Layout />}>
+            <Route index element={<Home />} />
+            <Route path="Addnote" element={<Addnote />} />
+            <Route path="Editnote/:id" element={<EditNote />} />
+            <Route path="*" element={<NoPage />} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
+    );
 }
 
-export default Dashboard
+export default Notes
