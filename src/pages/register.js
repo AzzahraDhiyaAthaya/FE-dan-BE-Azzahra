@@ -30,7 +30,7 @@ const Register = () => {
   }
 
   return (
-    <Layout>
+   
       <form onSubmit={(e) => onSubmit(e)} className='container mt-3'>
         <h1>Register</h1>
 
@@ -73,7 +73,6 @@ const Register = () => {
           Submit
         </button>
       </form>
-    </Layout>
   )
 }
 
